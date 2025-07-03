@@ -1,26 +1,26 @@
 {
   "questionId": "4",
-  "title": "Câu 4: Đếm số Nguyên Tố trong [A,B]",
-  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "title": "Câu 4: Đếm số nguyên tố trong khoảng [A, B]",
+  "description": "Viết chương trình đếm số số nguyên tố nằm trong khoảng [A,B] với A, B nhập vào từ bàn phím.",
   "formConfig": {
     "inputs": [
       {
-        "label": "Nhập số A:",
+        "label": "Nhập A:",
         "name": "a_value_cau4",
         "type": "number",
         "attributes": "min=\"1\" required",
         "defaultValue": "1"
       },
       {
-        "label": "Nhập số B:",
+        "label": "Nhập B:",
         "name": "b_value_cau4",
         "type": "number",
         "attributes": "min=\"1\" required",
-        "defaultValue": "50"
+        "defaultValue": "10"
       }
     ],
-    "submitButtonText": "Đếm số Nguyên Tố",
+    "submitButtonText": "Đếm số nguyên tố",
     "submitActionName": "submit_cau4",
-    "calculationFunctionName": "countPrimesInRange" // Tên hàm JS sẽ viết
+    "calculationFunctionName": "countPrimesInRange" 
   }
 }
