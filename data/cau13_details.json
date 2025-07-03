@@ -1,0 +1,15 @@
+{
+  "questionId": "13",
+  "title": "Câu 13: 2 SNT có tổng/hiệu là SNT",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm 2 SNT <= N):",
+    "inputName": "n_value_cau13",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tìm Cặp SNT Đặc Biệt",
+    "submitActionName": "submit_cau13",
+    "calculationFunctionName": null
+  }
+}
