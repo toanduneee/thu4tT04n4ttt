@@ -110,64 +110,113 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>${questionData.description}</p>
             </div>
         `;
-
-        // Render the form if formConfig is provided in the JSON
+    
+        // Render the form if formConfig is provided
         if (questionData.formConfig) {
             const formConfig = questionData.formConfig;
             const formId = `cau-form-${formConfig.questionId}`;
-            const inputId = `input_field_cau${formConfig.questionId}`;
-
-            html += `
-                <form id="${formId}">
-                    <div class="form-wrapper">
-                        <label for="${inputId}">${formConfig.inputLabel}</label><br>
-                        <input
-                            type="${formConfig.inputType}"
-                            id="${inputId}"
-                            name="${formConfig.inputName}"
-                            value="${formConfig.inputValueDefault || ''}"
-                            ${formConfig.inputAttributes}
-                        >
-                        <input type="hidden" name="selected_question_name" value="${formConfig.questionId}">
-                        <input type="submit" name="${formConfig.submitActionName}" value="${formConfig.submitButtonText}">
-                    </div>
-                </form>
-            `;
             
-            // Attach event listener for the dynamically created form submission
-            // Using setTimeout to ensure the form element exists in the DOM before attaching the listener
+            html += `<form id="${formId}">`;
+            html += `<div class="form-wrapper">`;
+    
+            // Render multiple inputs if available
+            if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
+                formConfig.inputs.forEach(inputInfo => {
+                    const inputId = `input_field_${inputInfo.name}`; // Generate unique ID
+                    html += `
+                        <label for="${inputId}">${inputInfo.label}</label><br>
+                        <input
+                            type="${inputInfo.type}"
+                            id="${inputId}"
+                            name="${inputInfo.name}"
+                            value="${inputInfo.defaultValue || ''}"
+                            ${inputInfo.attributes}
+                        >
+                    `;
+                });
+            } else {
+                // Fallback for single input, if needed (though we're using array for all now)
+                const inputId = `input_field_cau${formConfig.questionId}`;
+                html += `
+                    <label for="${inputId}">${formConfig.inputLabel}</label><br>
+                    <input
+                        type="${formConfig.inputType}"
+                        id="${inputId}"
+                        name="${formConfig.inputName}"
+                        value="${formConfig.inputValueDefault || ''}"
+                        ${formConfig.inputAttributes}
+                    >
+                `;
+            }
+    
+            // Hidden field for question identifier
+            html += `<input type="hidden" name="selected_question_name" value="${formConfig.questionId}">`;
+            
+            // Submit button
+            html += `<input type="submit" name="${formConfig.submitActionName}" value="${formConfig.submitButtonText}">`;
+            
+            html += `</div></form>`; // Close form-wrapper and form
+    
+            // Add event listener for form submission
             setTimeout(() => {
                 const formElement = document.getElementById(formId);
                 if (formElement) {
                     formElement.addEventListener('submit', (e) => {
-                        e.preventDefault(); // Prevent default browser form submission
+                        e.preventDefault();
                         
-                        const inputElement = document.getElementById(inputId);
-                        // Parse input value, defaulting to NaN if not a valid number
-                        const inputValue = parseInt(inputElement.value); 
-
                         let resultHtml = "";
-                        const calculationFuncName = formConfig.calculationFunctionName; // Get function name from JSON
-
-                        // Check if the specified calculation function exists globally
+                        const calculationFuncName = formConfig.calculationFunctionName;
+    
+                        // --- Get input values and call calculation function ---
+                        let inputValues = {};
+                        if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
+                            formConfig.inputs.forEach(inputInfo => {
+                                const inputElement = document.getElementById(`input_field_${inputInfo.name}`);
+                                // Store values, attempting to parse as integers where appropriate
+                                inputValues[inputInfo.name] = inputElement ? parseInt(inputElement.value) : NaN;
+                            });
+                        } else {
+                            // Fallback for single input (if needed)
+                            const inputElement = document.getElementById(`input_field_cau${formConfig.questionId}`);
+                            inputValues[formConfig.inputName] = inputElement ? parseInt(inputElement.value) : NaN;
+                        }
+    
+                        // Call the appropriate JavaScript function
                         if (calculationFuncName && typeof window[calculationFuncName] === 'function') {
-                            // Call the appropriate JavaScript function for calculation
-                            resultHtml = window[calculationFuncName](inputValue);
+                            // Check if all required inputs are valid numbers before calling
+                            let allInputsValid = true;
+                            // This part needs to be more robust depending on your specific input validation
+                            if (formConfig.questionId === "2" && isNaN(inputValues[`n_digits_cau2`])) allInputsValid = false;
+                            if (formConfig.questionId === "4" && (isNaN(inputValues[`a_value_cau4`]) || isNaN(inputValues[`b_value_cau4`]))) allInputsValid = false;
+                            if (formConfig.questionId === "5" && (isNaN(inputValues[`a_value_cau5`]) || isNaN(inputValues[`b_value_cau5`]))) allInputsValid = false;
+                            // Add checks for other questions if they have specific validation needs
+    
+                            if (allInputsValid) {
+                               // Call the function, passing the input values
+                               // You might need to adapt how arguments are passed if a function expects multiple specific arguments
+                               if (formConfig.questionId === "2") {
+                                   resultHtml = window[calculationFuncName](inputValues[`n_digits_cau2`]);
+                               } else if (formConfig.questionId === "4") {
+                                   resultHtml = window[calculationFuncName](inputValues[`a_value_cau4`], inputValues[`b_value_cau4`]);
+                               } else if (formConfig.questionId === "5") {
+                                   resultHtml = window[calculationFuncName](inputValues[`a_value_cau5`], inputValues[`b_value_cau5`]);
+                               }
+                               // Add else if for other questions...
+                               else {
+                                    resultHtml = "<p>Logic chưa được triển khai cho câu hỏi này.</p>";
+                               }
+                            } else {
+                                resultHtml = "<p style='color:red;'>Vui lòng nhập giá trị hợp lệ cho tất cả các trường.</p>";
+                            }
                         } else {
                             resultHtml = "<p>Logic tính toán chưa được triển khai hoặc sai tên hàm.</p>";
                         }
                         
-                        // Display the calculated result
                         displayResult(resultHtml);
                     });
                 }
             }, 0);
         }
-
-        // Set the HTML content for the question and make the area visible
-        questionContentArea.innerHTML = html;
-        questionContentArea.style.display = 'block';
-    }
 
     // Displays the result of a calculation
     function displayResult(resultHtml) {
