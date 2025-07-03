@@ -116,13 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionContentArea = document.getElementById('question-content-area');
     const errorMessageContainer = document.getElementById('error-message-container');
 
-    // Displays an error message in the designated area
     function displayError(message) {
         errorMessageContainer.style.display = 'block';
         errorMessageContainer.innerHTML = `<p>${message}</p>`;
     }
 
-    // Renders the UI for the selected question (title, description, form, result area)
     function renderQuestion(questionData) {
         let html = `
             <div class="question-details">
@@ -131,6 +129,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
     
+        // --- CHECK FOR PENDING MESSAGE FIRST ---
+        if (questionData.formConfig && questionData.formConfig.pendingMessage) {
+            html += `
+                <div class="pending-message">
+                    <p>${questionData.formConfig.pendingMessage}</p>
+                </div>
+            `;
+            questionContentArea.innerHTML = html;
+            questionContentArea.style.display = 'block';
+            return; // Stop rendering further for this question
+        }
+        // --- END CHECK FOR PENDING MESSAGE ---
+
         // Render the form if formConfig is provided
         if (questionData.formConfig) {
             const formConfig = questionData.formConfig;
@@ -139,10 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `<form id="${formId}">`;
             html += `<div class="form-wrapper">`;
     
-            // Render multiple input fields if available in formConfig.inputs
             if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
                 formConfig.inputs.forEach(inputInfo => {
-                    // Generate a unique ID for each input field
                     const inputId = `input_field_${inputInfo.name}`; 
                     html += `
                         <label for="${inputId}">${inputInfo.label}</label><br>
@@ -156,51 +165,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 });
             }
-            // Note: The fallback for single input is less critical now with the inputs array
             
-            // Hidden field for question identifier
             html += `<input type="hidden" name="selected_question_name" value="${formConfig.questionId}">`;
-            
-            // Submit button
             html += `<input type="submit" name="${formConfig.submitActionName || `submit_cau_${formConfig.questionId}`}" value="${formConfig.submitButtonText || 'Gửi'}">`;
             
-            html += `</div></form>`; // Close form-wrapper and form
+            html += `</div></form>`;
     
-            // Add event listener for form submission.
-            // Using setTimeout ensures the form is rendered and elements are available before attaching listeners.
             setTimeout(() => {
                 const formElement = document.getElementById(formId);
                 if (formElement) {
                     formElement.addEventListener('submit', (e) => {
-                        e.preventDefault(); // Prevent default form submission
+                        e.preventDefault();
                         
                         let resultHtml = "";
                         const calculationFuncName = formConfig.calculationFunctionName;
-                        let calculationArgs = []; // Array to hold arguments for the calculation function
-                        let allInputsValid = true; // Flag to check if all input values are valid
+                        let calculationArgs = []; 
+                        let allInputsValid = true; 
     
-                        // --- Get input values and prepare arguments ---
                         if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
                             formConfig.inputs.forEach(inputInfo => {
                                 const inputElement = document.getElementById(`input_field_${inputInfo.name}`);
                                 let value = inputElement ? inputElement.value : '';
                                 
-                                // Process value based on input type
                                 if (inputInfo.type === 'number') {
                                     let numValue = parseInt(value);
-                                    // Basic validation for numbers (check if it's NaN)
                                     if (isNaN(numValue)) {
-                                        // If validation fails, use null and mark allInputsValid as false
                                         value = null; 
                                         allInputsValid = false;
                                     } else {
-                                        value = numValue; // Use the parsed integer value
+                                        value = numValue;
                                     }
                                 }
                                 calculationArgs.push(value);
                             });
                         } else {
-                            // Handle cases where there might not be an inputs array (though discouraged)
                             const inputElement = document.getElementById(`input_field_cau${formConfig.questionId}`);
                             let value = inputElement ? inputElement.value : '';
                             if (formConfig.inputType === 'number') {
@@ -215,12 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             calculationArgs.push(value);
                         }
     
-                        // --- Call the calculation function dynamically ---
                         if (calculationFuncName && typeof window[calculationFuncName] === 'function') {
-                            // Check if all inputs were valid before proceeding
                             if (allInputsValid) {
-                                // Use the spread syntax (...) to pass the array of arguments
-                                // to the appropriate JavaScript function.
+                                // Call the function using spread syntax
                                 resultHtml = window[calculationFuncName](...calculationArgs);
                             } else {
                                 resultHtml = "<p style='color:red;'>Vui lòng nhập giá trị hợp lệ cho tất cả các trường.</p>";
