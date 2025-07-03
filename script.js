@@ -35,13 +35,9 @@ function findPrimesWithNDigits(n) {
     }
 
     // Format output nicely, limiting the number of displayed primes if the list is too long
-    // const maxPrimesToShow = 100; // Adjust as needed
-    // const displayedPrimes = primes.slice(0, maxPrimesToShow);
-    // const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
-
-    // Hiển thị tất cả các số nguyên tố tìm được
-    const displayedPrimes = primes; // Lấy toàn bộ mảng
-    const moreThanDisplayed = ''; // Không còn giới hạn
+    const maxPrimesToShow = 200; // Chắc là hiện 200 thôi thì sẽ oke, thấy cái 10 hơi ấy ấy à =))))))
+    const displayedPrimes = primes.slice(0, maxPrimesToShow);
+    const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
 
     return `<p>Các số nguyên tố có ${n} chữ số là: <strong>${displayedPrimes.join(', ')}</strong>${moreThanDisplayed}.</p>`;
 }
