@@ -1,0 +1,15 @@
+{
+  "questionId": "6",
+  "title": "Câu 6: Cặp Số Thân Thiết",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm cặp < N):",
+    "inputName": "n_value_cau6",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "1000",
+    "submitButtonText": "Tìm Cặp Số Thân Thiết",
+    "submitActionName": "submit_cau6",
+    "calculationFunctionName": null
+  }
+}
