@@ -1,0 +1,15 @@
+{
+  "questionId": "8",
+  "title": "Câu 8: Số T-Prime",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm số T-Prime <= N):",
+    "inputName": "n_value_cau8",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tìm Số T-Prime",
+    "submitActionName": "submit_cau8",
+    "calculationFunctionName": null
+  }
+}
