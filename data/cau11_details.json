@@ -1,0 +1,15 @@
+{
+  "questionId": "11",
+  "title": "Câu 11: Tổng Số Nguyên Tố <= N",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N:",
+    "inputName": "n_value_cau11",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tính Tổng Nguyên Tố",
+    "submitActionName": "submit_cau11",
+    "calculationFunctionName": null
+  }
+}
