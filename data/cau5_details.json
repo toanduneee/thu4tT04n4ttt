@@ -1,0 +1,26 @@
+{
+  "questionId": "5",
+  "title": "Câu 5: Tính Tổng Số Nguyên Tố trong [A,B]",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputs": [
+      {
+        "label": "Nhập số A:",
+        "name": "a_value_cau5",
+        "type": "number",
+        "attributes": "min=\"1\" required",
+        "defaultValue": "1"
+      },
+      {
+        "label": "Nhập số B:",
+        "name": "b_value_cau5",
+        "type": "number",
+        "attributes": "min=\"1\" required",
+        "defaultValue": "50"
+      }
+    ],
+    "submitButtonText": "Tính Tổng Nguyên Tố",
+    "submitActionName": "submit_cau5",
+    "calculationFunctionName": "sumPrimesInRange" // Tên hàm JS sẽ viết
+  }
+}
