@@ -1,0 +1,15 @@
+{
+  "questionId": "12",
+  "title": "Câu 12: 4 SNT liên tiếp có tổng là SNT",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm tổng SNT <= N):",
+    "inputName": "n_value_cau12",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tìm SNT Liên Tiếp",
+    "submitActionName": "submit_cau12",
+    "calculationFunctionName": null
+  }
+}
