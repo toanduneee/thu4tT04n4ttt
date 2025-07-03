@@ -21,6 +21,6 @@
     ],
     "submitButtonText": "Tính tổng số nguyên tố",
     "submitActionName": "submit_cau5",
-    "calculationFunctionName": "sumPrimesInRange" 
+    "calculationFunctionName": null
   }
 }
