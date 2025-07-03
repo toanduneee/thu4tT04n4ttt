@@ -1,0 +1,26 @@
+{
+  "questionId": "4",
+  "title": "Câu 4: Đếm số Nguyên Tố trong [A,B]",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputs": [
+      {
+        "label": "Nhập số A:",
+        "name": "a_value_cau4",
+        "type": "number",
+        "attributes": "min=\"1\" required",
+        "defaultValue": "1"
+      },
+      {
+        "label": "Nhập số B:",
+        "name": "b_value_cau4",
+        "type": "number",
+        "attributes": "min=\"1\" required",
+        "defaultValue": "50"
+      }
+    ],
+    "submitButtonText": "Đếm số Nguyên Tố",
+    "submitActionName": "submit_cau4",
+    "calculationFunctionName": "countPrimesInRange" // Tên hàm JS sẽ viết
+  }
+}
