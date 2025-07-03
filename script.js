@@ -35,9 +35,13 @@ function findPrimesWithNDigits(n) {
     }
 
     // Format output nicely, limiting the number of displayed primes if the list is too long
-    const maxPrimesToShow = 100; // Adjust as needed
-    const displayedPrimes = primes.slice(0, maxPrimesToShow);
-    const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
+    // const maxPrimesToShow = 100; // Adjust as needed
+    // const displayedPrimes = primes.slice(0, maxPrimesToShow);
+    // const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
+
+    // Hiển thị tất cả các số nguyên tố tìm được
+    const displayedPrimes = primes; // Lấy toàn bộ mảng
+    const moreThanDisplayed = ''; // Không còn giới hạn
 
     return `<p>Các số nguyên tố có ${n} chữ số là: <strong>${displayedPrimes.join(', ')}</strong>${moreThanDisplayed}.</p>`;
 }
@@ -70,9 +74,13 @@ function findQPrimes(n) {
     }
 
     if (qPrimes.length > 0) {
-        const maxQPrimesToShow = 50; // Limit displayed results for readability
-        const displayedQPrimes = qPrimes.slice(0, maxQPrimesToShow);
-        const moreThanDisplayed = qPrimes.length > maxQPrimesToShow ? ` (và ${qPrimes.length - maxQPrimesToShow} số khác)` : '';
+        // const maxQPrimesToShow = 50; // Limit displayed results for readability
+        // const displayedQPrimes = qPrimes.slice(0, maxQPrimesToShow);
+        // const moreThanDisplayed = qPrimes.length > maxQPrimesToShow ? ` (và ${qPrimes.length - maxQPrimesToShow} số khác)` : '';
+
+        // Hiển thị tất cả các số tìm được
+        const displayedQPrimes = qPrimes; // Lấy toàn bộ mảng
+        const moreThanDisplayed = ''; // Không còn giới hạn
         
         return `<p>Các số Q-Prime nhỏ hơn hoặc bằng ${n} là: <strong>${displayedQPrimes.join(', ')}</strong>${moreThanDisplayed}.</p>`;
     } else {
