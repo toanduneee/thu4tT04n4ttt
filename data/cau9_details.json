@@ -1,0 +1,15 @@
+{
+  "questionId": "9",
+  "title": "Câu 9: Đếm số Nguyên Tố <= N",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N:",
+    "inputName": "n_value_cau9",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Đếm số Nguyên Tố",
+    "submitActionName": "submit_cau9",
+    "calculationFunctionName": null
+  }
+}
