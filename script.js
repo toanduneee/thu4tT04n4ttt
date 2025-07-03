@@ -1,6 +1,6 @@
 // --- HELPER FUNCTIONS FOR CALCULATIONS ---
 
-// Function to check if a number is prime
+// Helper function to check if a number is prime
 function isPrime(num) {
     if (num <= 1) return false;
     if (num <= 3) return true;
@@ -21,9 +21,6 @@ function findPrimesWithNDigits(n) {
     const startNum = Math.pow(10, n - 1);
     const endNum = Math.pow(10, n) - 1;
 
-    // Loop through all numbers with N digits and check for primality
-    // For very large N (like 10), this might take a while in the browser.
-    // Consider adding a progress indicator or limiting the range if performance is an issue.
     for (let i = startNum; i <= endNum; i++) {
         if (isPrime(i)) {
             primes.push(i);
@@ -34,8 +31,7 @@ function findPrimesWithNDigits(n) {
         return "<p>Không tìm thấy số nguyên tố nào có " + n + " chữ số.</p>";
     }
 
-    // Format output nicely, limiting the number of displayed primes if the list is too long
-    const maxPrimesToShow = 100; // Chắc là hiện 100 thôi thì sẽ oke, thấy cái 10 hơi ấy ấy à =))))))
+    const maxPrimesToShow = 100; 
     const displayedPrimes = primes.slice(0, maxPrimesToShow);
     const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
 
@@ -50,7 +46,6 @@ function findQPrimes(n) {
     }
 
     const qPrimes = [];
-    // Loop from 1 up to N
     for (let i = 1; i <= n; i++) {
         let divisors_count = 0;
         // Count divisors for the number 'i'
@@ -63,20 +58,14 @@ function findQPrimes(n) {
                 }
             }
         }
-        // A number is Q-prime if it has exactly 4 divisors
         if (divisors_count === 4) {
             qPrimes.push(i);
         }
     }
 
     if (qPrimes.length > 0) {
-        // const maxQPrimesToShow = 50; // Limit displayed results for readability
-        // const displayedQPrimes = qPrimes.slice(0, maxQPrimesToShow);
-        // const moreThanDisplayed = qPrimes.length > maxQPrimesToShow ? ` (và ${qPrimes.length - maxQPrimesToShow} số khác)` : '';
-
-        // Hiển thị tất cả các số tìm được
-        const displayedQPrimes = qPrimes; // Lấy toàn bộ mảng
-        const moreThanDisplayed = ''; // Không còn giới hạn
+        const displayedQPrimes = qPrimes; 
+        const moreThanDisplayed = '';
         
         return `<p>Các số Q-Prime nhỏ hơn hoặc bằng ${n} là: <strong>${displayedQPrimes.join(', ')}</strong>${moreThanDisplayed}.</p>`;
     } else {
@@ -85,8 +74,39 @@ function findQPrimes(n) {
 }
 
 // --- Add functions for other questions here ---
-// Example:
-// function findQuestion3Logic(n, p, s, q, k) { ... }
+// Example for Question 4: Count primes in range [A, B]
+function countPrimesInRange(a, b) {
+    if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0 || a > b) {
+        return "<p style='color:red;'>Vui lòng nhập hai số nguyên dương A và B hợp lệ, với A ≤ B.</p>";
+    }
+
+    let count = 0;
+    // Iterate from A to B (inclusive)
+    for (let i = a; i <= b; i++) {
+        if (isPrime(i)) {
+            count++;
+        }
+    }
+    
+    return `<p>Số lượng số nguyên tố trong khoảng [${a}, ${b}] là: <strong>${count}</strong>.</p>`;
+}
+
+// Example for Question 5: Sum of primes in range [A, B]
+function sumPrimesInRange(a, b) {
+    if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0 || a > b) {
+        return "<p style='color:red;'>Vui lòng nhập hai số nguyên dương A và B hợp lệ, với A ≤ B.</p>";
+    }
+
+    let sum = 0;
+    // Iterate from A to B (inclusive)
+    for (let i = a; i <= b; i++) {
+        if (isPrime(i)) {
+            sum += i;
+        }
+    }
+    
+    return `<p>Tổng các số nguyên tố trong khoảng [${a}, ${b}] là: <strong>${sum}</strong>.</p>`;
+}
 
 
 // --- CORE APPLICATION LOGIC ---
@@ -102,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessageContainer.innerHTML = `<p>${message}</p>`;
     }
 
-    // Renders the UI for the selected question (title, description, form, result)
+    // Renders the UI for the selected question (title, description, form, result area)
     function renderQuestion(questionData) {
         let html = `
             <div class="question-details">
@@ -119,10 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `<form id="${formId}">`;
             html += `<div class="form-wrapper">`;
     
-            // Render multiple inputs if available
+            // Render multiple input fields if available in formConfig.inputs
             if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
                 formConfig.inputs.forEach(inputInfo => {
-                    const inputId = `input_field_${inputInfo.name}`; // Generate unique ID
+                    // Generate a unique ID for each input field
+                    const inputId = `input_field_${inputInfo.name}`; 
                     html += `
                         <label for="${inputId}">${inputInfo.label}</label><br>
                         <input
@@ -130,81 +151,77 @@ document.addEventListener('DOMContentLoaded', () => {
                             id="${inputId}"
                             name="${inputInfo.name}"
                             value="${inputInfo.defaultValue || ''}"
-                            ${inputInfo.attributes}
+                            ${inputInfo.attributes || ''}
                         >
                     `;
                 });
-            } else {
-                // Fallback for single input, if needed (though we're using array for all now)
-                const inputId = `input_field_cau${formConfig.questionId}`;
-                html += `
-                    <label for="${inputId}">${formConfig.inputLabel}</label><br>
-                    <input
-                        type="${formConfig.inputType}"
-                        id="${inputId}"
-                        name="${formConfig.inputName}"
-                        value="${formConfig.inputValueDefault || ''}"
-                        ${formConfig.inputAttributes}
-                    >
-                `;
             }
-    
+            // Note: The fallback for single input is less critical now with the inputs array
+            
             // Hidden field for question identifier
             html += `<input type="hidden" name="selected_question_name" value="${formConfig.questionId}">`;
             
             // Submit button
-            html += `<input type="submit" name="${formConfig.submitActionName}" value="${formConfig.submitButtonText}">`;
+            html += `<input type="submit" name="${formConfig.submitActionName || `submit_cau_${formConfig.questionId}`}" value="${formConfig.submitButtonText || 'Gửi'}">`;
             
             html += `</div></form>`; // Close form-wrapper and form
     
-            // Add event listener for form submission
+            // Add event listener for form submission.
+            // Using setTimeout ensures the form is rendered and elements are available before attaching listeners.
             setTimeout(() => {
                 const formElement = document.getElementById(formId);
                 if (formElement) {
                     formElement.addEventListener('submit', (e) => {
-                        e.preventDefault();
+                        e.preventDefault(); // Prevent default form submission
                         
                         let resultHtml = "";
                         const calculationFuncName = formConfig.calculationFunctionName;
+                        let calculationArgs = []; // Array to hold arguments for the calculation function
+                        let allInputsValid = true; // Flag to check if all input values are valid
     
-                        // --- Get input values and call calculation function ---
-                        let inputValues = {};
+                        // --- Get input values and prepare arguments ---
                         if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
                             formConfig.inputs.forEach(inputInfo => {
                                 const inputElement = document.getElementById(`input_field_${inputInfo.name}`);
-                                // Store values, attempting to parse as integers where appropriate
-                                inputValues[inputInfo.name] = inputElement ? parseInt(inputElement.value) : NaN;
+                                let value = inputElement ? inputElement.value : '';
+                                
+                                // Process value based on input type
+                                if (inputInfo.type === 'number') {
+                                    let numValue = parseInt(value);
+                                    // Basic validation for numbers (check if it's NaN)
+                                    if (isNaN(numValue)) {
+                                        // If validation fails, use null and mark allInputsValid as false
+                                        value = null; 
+                                        allInputsValid = false;
+                                    } else {
+                                        value = numValue; // Use the parsed integer value
+                                    }
+                                }
+                                calculationArgs.push(value);
                             });
                         } else {
-                            // Fallback for single input (if needed)
+                            // Handle cases where there might not be an inputs array (though discouraged)
                             const inputElement = document.getElementById(`input_field_cau${formConfig.questionId}`);
-                            inputValues[formConfig.inputName] = inputElement ? parseInt(inputElement.value) : NaN;
+                            let value = inputElement ? inputElement.value : '';
+                            if (formConfig.inputType === 'number') {
+                                let numValue = parseInt(value);
+                                if (isNaN(numValue)) {
+                                    value = null;
+                                    allInputsValid = false;
+                                } else {
+                                    value = numValue;
+                                }
+                            }
+                            calculationArgs.push(value);
                         }
     
-                        // Call the appropriate JavaScript function
+                        // --- Call the calculation function dynamically ---
                         if (calculationFuncName && typeof window[calculationFuncName] === 'function') {
-                            // Check if all required inputs are valid numbers before calling
-                            let allInputsValid = true;
-                            // This part needs to be more robust depending on your specific input validation
-                            if (formConfig.questionId === "2" && isNaN(inputValues[`n_digits_cau2`])) allInputsValid = false;
-                            if (formConfig.questionId === "4" && (isNaN(inputValues[`a_value_cau4`]) || isNaN(inputValues[`b_value_cau4`]))) allInputsValid = false;
-                            if (formConfig.questionId === "5" && (isNaN(inputValues[`a_value_cau5`]) || isNaN(inputValues[`b_value_cau5`]))) allInputsValid = false;
-                            // Add checks for other questions if they have specific validation needs
-    
+                            // Check if all inputs were valid before proceeding
                             if (allInputsValid) {
-                               // Call the function, passing the input values
-                               // You might need to adapt how arguments are passed if a function expects multiple specific arguments
-                               if (formConfig.questionId === "2") {
-                                   resultHtml = window[calculationFuncName](inputValues[`n_digits_cau2`]);
-                               } else if (formConfig.questionId === "4") {
-                                   resultHtml = window[calculationFuncName](inputValues[`a_value_cau4`], inputValues[`b_value_cau4`]);
-                               } else if (formConfig.questionId === "5") {
-                                   resultHtml = window[calculationFuncName](inputValues[`a_value_cau5`], inputValues[`b_value_cau5`]);
-                               }
-                               // Add else if for other questions...
-                               else {
-                                    resultHtml = "<p>Logic chưa được triển khai cho câu hỏi này.</p>";
-                               }
+                                // Use the spread syntax (...) to pass the array of arguments
+                                // to the appropriate JavaScript function.
+                                resultHtml = window[calculationFuncName](...calculationArgs);
                             } else {
                                 resultHtml = "<p style='color:red;'>Vui lòng nhập giá trị hợp lệ cho tất cả các trường.</p>";
                             }
@@ -218,7 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 0);
         }
 
-    // Displays the result of a calculation
+        questionContentArea.innerHTML = html;
+        questionContentArea.style.display = 'block';
+    }
+
+    // Displays the result of a calculation in the designated area
     function displayResult(resultHtml) {
         // Remove any previous result to avoid stacking
         const existingResultDiv = questionContentArea.querySelector('.result-output');
@@ -235,21 +256,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Loads the details (title, description, form config) for a specific question from a JSON file
     function loadQuestionDetails(questionName) {
+        // Construct the path to the JSON file for the specific question
         fetch(`data/cau${questionName}_details.json`)
             .then(response => {
+                // Handle HTTP errors (e.g., file not found)
                 if (!response.ok) {
                     if (response.status === 404) throw new Error("Tệp dữ liệu câu hỏi không tồn tại.");
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                // Parse the JSON response
                 return response.json();
             })
             .then(data => {
+                // Render the question's UI using the loaded data
                 renderQuestion(data);
             })
             .catch(error => {
+                // Log and display any errors during the fetch or parsing process
                 console.error(`Error loading details for question ${questionName}:`, error);
                 displayError(`Không thể tải chi tiết cho câu hỏi ${questionName}: ${error.message}`);
-                questionContentArea.style.display = 'none'; // Hide content area if error occurs
+                questionContentArea.style.display = 'none'; // Hide content area if an error occurs
             });
     }
 
@@ -262,10 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(questions => {
+            // Ensure the fetched data is a non-empty array
             if (!Array.isArray(questions) || questions.length === 0) {
                 displayError("Không có câu hỏi nào trong dữ liệu.");
                 return;
             }
+            // Populate the questions dropdown
             questions.forEach(q => {
                 const option = document.createElement('option');
                 option.value = q.name;
@@ -282,14 +310,16 @@ document.addEventListener('DOMContentLoaded', () => {
     questionsSelect.addEventListener('change', (event) => {
         const selectedQuestionName = event.target.value;
 
+        // If no question is selected (e.g., the default "-- Chọn một câu hỏi --"), hide the content area
         if (!selectedQuestionName) {
-            questionContentArea.style.display = 'none'; // Hide content area if no question is selected
+            questionContentArea.style.display = 'none';
             return;
         }
 
+        // Load and render the details for the selected question
         loadQuestionDetails(selectedQuestionName);
     });
 
-    // Initialize: Hide the content area until a question is selected
+    // Initialize: Hide the content area until a question is selected from the dropdown
     questionContentArea.style.display = 'none';
 });
