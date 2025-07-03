@@ -1,0 +1,15 @@
+{
+  "questionId": "15",
+  "title": "Câu 15: Số Nguyên Tố Sinh Đôi",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm số nguyên tố sinh đôi < N):",
+    "inputName": "n_value_cau15",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tìm Số Nguyên Tố Sinh Đôi",
+    "submitActionName": "submit_cau15",
+    "calculationFunctionName": null
+  }
+}
