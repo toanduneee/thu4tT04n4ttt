@@ -1,0 +1,15 @@
+{
+  "questionId": "14",
+  "title": "Câu 14: SNT 3 chữ số & Lập phương đảo ngược",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm SNT 3 chữ số < N):",
+    "inputName": "n_value_cau14",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "1000",
+    "submitButtonText": "Tìm SNT Đặc Biệt",
+    "submitActionName": "submit_cau14",
+    "calculationFunctionName": null
+  }
+}
