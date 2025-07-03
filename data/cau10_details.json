@@ -1,0 +1,15 @@
+{
+  "questionId": "10",
+  "title": "Câu 10: Ước & Ước Nguyên Tố",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N:",
+    "inputName": "n_value_cau10",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Đếm Ước & Ước Nguyên Tố",
+    "submitActionName": "submit_cau10",
+    "calculationFunctionName": null
+  }
+}
