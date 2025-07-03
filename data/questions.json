@@ -1,0 +1,18 @@
+[
+  {"name": "1", "displayName": "Câu hỏi 1: Số Q-Prime"},
+  {"name": "2", "displayName": "Câu hỏi 2: Số Nguyên Tố N Chữ Số"},
+  {"name": "3", "displayName": "Câu hỏi 3: Tính toán N+p+s-q-k"},
+  {"name": "4", "displayName": "Câu hỏi 4: Đếm số nguyên tố trong [A,B]"},
+  {"name": "5", "displayName": "Câu hỏi 5: Tổng số nguyên tố trong [A,B]"},
+  {"name": "6", "displayName": "Câu hỏi 6: Cặp số thân thiết"},
+  {"name": "7", "displayName": "Câu hỏi 7: Số emirp"},
+  {"name": "8", "displayName": "Câu hỏi 8: Số T-Prime"},
+  {"name": "9", "displayName": "Câu hỏi 9: Đếm số nguyên tố <= N"},
+  {"name": "10", "displayName": "Câu hỏi 10: Ước & Ước nguyên tố"},
+  {"name": "11", "displayName": "Câu hỏi 11: Tổng số nguyên tố <= N"},
+  {"name": "12", "displayName": "Câu hỏi 12: 4 SNT liên tiếp có tổng là SNT"},
+  {"name": "13", "displayName": "Câu hỏi 13: 2 SNT có tổng/hiệu là SNT"},
+  {"name": "14", "displayName": "Câu hỏi 14: SNT 3 chữ số & lập phương đảo ngược"},
+  {"name": "15", "displayName": "Câu hỏi 15: Số nguyên tố sinh đôi"},
+  {"name": "16", "displayName": "Câu hỏi 16: SNT trong mảng ngẫu nhiên"}
+]
