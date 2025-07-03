@@ -1,0 +1,15 @@
+{
+  "questionId": "3",
+  "title": "Câu 3: Tính toán N+p+s-q-k",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N:",
+    "inputName": "n_value_cau3",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "1",
+    "submitButtonText": "Tính toán",
+    "submitActionName": "submit_cau3",
+    "calculationFunctionName": null 
+  }
+}
