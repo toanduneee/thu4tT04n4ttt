@@ -35,7 +35,7 @@ function findPrimesWithNDigits(n) {
     }
 
     // Format output nicely, limiting the number of displayed primes if the list is too long
-    const maxPrimesToShow = 200; // Chắc là hiện 200 thôi thì sẽ oke, thấy cái 10 hơi ấy ấy à =))))))
+    const maxPrimesToShow = 100; // Chắc là hiện 100 thôi thì sẽ oke, thấy cái 10 hơi ấy ấy à =))))))
     const displayedPrimes = primes.slice(0, maxPrimesToShow);
     const moreThanDisplayed = primes.length > maxPrimesToShow ? ` (và ${primes.length - maxPrimesToShow} số khác)` : '';
 
