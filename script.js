@@ -39,7 +39,6 @@ function findPrimesWithNDigits(n) {
 }
 
 // Function for Question 1: Find Q-Primes
-// A Q-prime is a number with exactly 4 positive divisors.
 function findQPrimes(n) {
     if (n <= 0 || !Number.isInteger(n)) {
         return "<p style='color:red;'>Vui lòng nhập một số nguyên dương cho N.</p>";
@@ -48,12 +47,10 @@ function findQPrimes(n) {
     const qPrimes = [];
     for (let i = 1; i <= n; i++) {
         let divisors_count = 0;
-        // Count divisors for the number 'i'
-        // Optimization: loop up to sqrt(i)
         for (let j = 1; j * j <= i; j++) {
             if (i % j === 0) {
-                divisors_count++; // j is a divisor
-                if (j * j !== i) { // If j*j is not equal to i, then i/j is another distinct divisor
+                divisors_count++;
+                if (j * j !== i) {
                     divisors_count++;
                 }
             }
@@ -73,15 +70,14 @@ function findQPrimes(n) {
     }
 }
 
-// --- Add functions for other questions here ---
-// Example for Question 4: Count primes in range [A, B]
+// Function for Question 4: Count primes in range [A, B]
 function countPrimesInRange(a, b) {
+    // Perform validation for a and b directly in the function
     if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0 || a > b) {
         return "<p style='color:red;'>Vui lòng nhập hai số nguyên dương A và B hợp lệ, với A ≤ B.</p>";
     }
 
     let count = 0;
-    // Iterate from A to B (inclusive)
     for (let i = a; i <= b; i++) {
         if (isPrime(i)) {
             count++;
@@ -91,14 +87,14 @@ function countPrimesInRange(a, b) {
     return `<p>Số lượng số nguyên tố trong khoảng [${a}, ${b}] là: <strong>${count}</strong>.</p>`;
 }
 
-// Example for Question 5: Sum of primes in range [A, B]
+// Function for Question 5: Sum of primes in range [A, B]
 function sumPrimesInRange(a, b) {
+    // Perform validation for a and b directly in the function
     if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0 || a > b) {
         return "<p style='color:red;'>Vui lòng nhập hai số nguyên dương A và B hợp lệ, với A ≤ B.</p>";
     }
 
     let sum = 0;
-    // Iterate from A to B (inclusive)
     for (let i = a; i <= b; i++) {
         if (isPrime(i)) {
             sum += i;
@@ -116,11 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionContentArea = document.getElementById('question-content-area');
     const errorMessageContainer = document.getElementById('error-message-container');
 
+    // Displays an error message in the designated area
     function displayError(message) {
         errorMessageContainer.style.display = 'block';
         errorMessageContainer.innerHTML = `<p>${message}</p>`;
     }
 
+    // Renders the UI for the selected question (title, description, form, result area)
     function renderQuestion(questionData) {
         let html = `
             <div class="question-details">
@@ -131,11 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // --- CHECK FOR PENDING MESSAGE FIRST ---
         if (questionData.formConfig && questionData.formConfig.pendingMessage) {
-            html += `
-                <div class="pending-message">
-                    <p>${questionData.formConfig.pendingMessage}</p>
-                </div>
-            `;
+            html += `<div class="pending-message">${questionData.formConfig.pendingMessage}</div>`;
             questionContentArea.innerHTML = html;
             questionContentArea.style.display = 'block';
             return; // Stop rendering further for this question
@@ -150,8 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `<form id="${formId}">`;
             html += `<div class="form-wrapper">`;
     
+            // Render multiple input fields if available in formConfig.inputs
             if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
-                formConfig.inputs.forEach(inputInfo => {
+                formConfig.inputs.forEach((inputInfo, index) => {
+                    // Generate a unique ID for each input field
                     const inputId = `input_field_${inputInfo.name}`; 
                     html += `
                         <label for="${inputId}">${inputInfo.label}</label><br>
@@ -166,39 +162,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             
+            // Hidden field for question identifier
             html += `<input type="hidden" name="selected_question_name" value="${formConfig.questionId}">`;
-            html += `<input type="submit" name="${formConfig.submitActionName || `submit_cau_${formConfig.questionId}`}" value="${formConfig.submitButtonText || 'Gửi'}">`;
             
-            html += `</div></form>`;
+            // Submit button
+            // Use default name/value if not provided in config
+            const submitName = formConfig.submitActionName || `submit_cau_${formConfig.questionId}`;
+            const submitValue = formConfig.submitButtonText || 'Gửi';
+            html += `<input type="submit" name="${submitName}" value="${submitValue}">`;
+            
+            html += `</div></form>`; // Close form-wrapper and form
     
+            // Add event listener for form submission.
+            // Using setTimeout ensures the form is rendered and elements are available before attaching listeners.
             setTimeout(() => {
                 const formElement = document.getElementById(formId);
                 if (formElement) {
                     formElement.addEventListener('submit', (e) => {
-                        e.preventDefault();
+                        e.preventDefault(); // Prevent default form submission
                         
                         let resultHtml = "";
                         const calculationFuncName = formConfig.calculationFunctionName;
-                        let calculationArgs = []; 
-                        let allInputsValid = true; 
+                        let calculationArgs = []; // Array to hold arguments for the calculation function
+                        let allInputsValid = true; // Flag to check if all input values are valid
     
+                        // --- Get input values and prepare arguments ---
                         if (formConfig.inputs && Array.isArray(formConfig.inputs)) {
                             formConfig.inputs.forEach(inputInfo => {
                                 const inputElement = document.getElementById(`input_field_${inputInfo.name}`);
                                 let value = inputElement ? inputElement.value : '';
                                 
+                                // Process value based on input type
                                 if (inputInfo.type === 'number') {
                                     let numValue = parseInt(value);
+                                    // Basic validation for numbers (check if it's NaN)
                                     if (isNaN(numValue)) {
-                                        value = null; 
-                                        allInputsValid = false;
+                                        value = null; // Indicate invalid input
+                                        allInputsValid = false; // Mark the entire form as invalid
                                     } else {
-                                        value = numValue;
+                                        value = numValue; // Use the parsed integer value
                                     }
                                 }
-                                calculationArgs.push(value);
+                                calculationArgs.push(value); // Add the processed value to arguments array
                             });
                         } else {
+                            // Fallback for single input if 'inputs' array is not used (less ideal)
                             const inputElement = document.getElementById(`input_field_cau${formConfig.questionId}`);
                             let value = inputElement ? inputElement.value : '';
                             if (formConfig.inputType === 'number') {
@@ -213,18 +221,23 @@ document.addEventListener('DOMContentLoaded', () => {
                             calculationArgs.push(value);
                         }
     
+                        // --- Call the calculation function dynamically ---
                         if (calculationFuncName && typeof window[calculationFuncName] === 'function') {
+                            // Check if all inputs were valid before attempting calculation
                             if (allInputsValid) {
-                                // Call the function using spread syntax
+                                // Use the spread syntax (...) to pass the array of arguments
+                                // to the appropriate JavaScript function.
                                 resultHtml = window[calculationFuncName](...calculationArgs);
                             } else {
+                                // Display a generic error if any input was invalid
                                 resultHtml = "<p style='color:red;'>Vui lòng nhập giá trị hợp lệ cho tất cả các trường.</p>";
                             }
                         } else {
+                            // If the function name is not found or not a function
                             resultHtml = "<p>Logic tính toán chưa được triển khai hoặc sai tên hàm.</p>";
                         }
                         
-                        displayResult(resultHtml);
+                        displayResult(resultHtml); // Display the result or error message
                     });
                 }
             }, 0);
