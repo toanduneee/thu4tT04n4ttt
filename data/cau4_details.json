@@ -21,6 +21,6 @@
     ],
     "submitButtonText": "Đếm số nguyên tố",
     "submitActionName": "submit_cau4",
-    "calculationFunctionName": "countPrimesInRange" 
+    "calculationFunctionName": null
   }
 }
