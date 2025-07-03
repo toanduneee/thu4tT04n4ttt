@@ -1,0 +1,15 @@
+{
+  "questionId": "16",
+  "title": "Câu 16: SNT trong Mảng Ngẫu Nhiên",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập kích thước mảng N:",
+    "inputName": "n_value_cau16",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "10",
+    "submitButtonText": "Tìm SNT trong Mảng",
+    "submitActionName": "submit_cau16",
+    "calculationFunctionName": null
+  }
+}
