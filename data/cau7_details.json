@@ -1,0 +1,15 @@
+{
+  "questionId": "7",
+  "title": "Câu 7: Số Emirp",
+  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "formConfig": {
+    "inputLabel": "Nhập số N (tìm số emirp < N):",
+    "inputName": "n_value_cau7",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "100",
+    "submitButtonText": "Tìm Số Emirp",
+    "submitActionName": "submit_cau7",
+    "calculationFunctionName": null
+  }
+}
