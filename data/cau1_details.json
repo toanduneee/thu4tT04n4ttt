@@ -1,0 +1,15 @@
+{
+  "questionId": "1",
+  "title": "Câu 1: Tìm số Q-Prime",
+  "description": "Một số gọi là Q-prime khi nó có đúng 4 ước số nguyên dương. Hãy viết chương trình in ra các số Q-Prime nhỏ hơn hoặc bằng một số N cho trước nhập từ bàn phím.",
+  "formConfig": {
+    "inputLabel": "Nhập giá trị N:",
+    "inputName": "n_value_cau1",
+    "inputType": "number",
+    "inputAttributes": "min=\"1\" required",
+    "inputValueDefault": "1",
+    "submitButtonText": "Tìm Q-Prime",
+    "submitActionName": "submit_cau1",
+    "calculationFunctionName": "findQPrimes" 
+  }
+}
