@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Phép Thuật ATTT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Phép Thuật ATTT</h1>
+
+        <div id="error-message-container" class="error-message" style="display: none;"></div>
+
+        <div class="controls-section">
+            <label for="questions">Chọn một câu hỏi:</label>
+            <select name="selected_question_name" id="questions">
+                <option value="">-- Chọn một câu hỏi --</option>
+                <!-- Questions will be loaded here by script.js -->
+            </select>
+        </div>
+
+        <div id="question-content-area" style="display: none;">
+            <!-- Content for the selected question will be loaded here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
