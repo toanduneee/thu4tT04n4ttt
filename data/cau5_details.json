@@ -1,26 +1,26 @@
 {
   "questionId": "5",
-  "title": "Câu 5: Tính Tổng Số Nguyên Tố trong [A,B]",
-  "description": "Bro nhanh quá, đợi tôi già thêm chút nữa rồi tôi làm nhé",
+  "title": "Câu 5: Tính tổng số nguyên tố trong khoảng [A, B]",
+  "description": "Viết chương trình tính tổng của các số nguyên tố nằm trong khoảng [A, B] với A, B nhập vào từ bàn phím.",
   "formConfig": {
     "inputs": [
       {
-        "label": "Nhập số A:",
+        "label": "Nhập A:",
         "name": "a_value_cau5",
         "type": "number",
         "attributes": "min=\"1\" required",
         "defaultValue": "1"
       },
       {
-        "label": "Nhập số B:",
+        "label": "Nhập B:",
         "name": "b_value_cau5",
         "type": "number",
         "attributes": "min=\"1\" required",
-        "defaultValue": "50"
+        "defaultValue": "10"
       }
     ],
-    "submitButtonText": "Tính Tổng Nguyên Tố",
+    "submitButtonText": "Tính tổng số nguyên tố",
     "submitActionName": "submit_cau5",
-    "calculationFunctionName": "sumPrimesInRange" // Tên hàm JS sẽ viết
+    "calculationFunctionName": "sumPrimesInRange" 
   }
 }
